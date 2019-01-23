@@ -3,7 +3,7 @@ from lib.models import Board
 
 board = Board(6, 9)
 
-def test_board():
+def test_board_dimensions():
   assert board.width == 6
   assert board.height == 9
 
