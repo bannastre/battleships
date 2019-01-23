@@ -12,3 +12,6 @@ class Board:
   
   def is_square_full(self, x, y):
     return self.squares[self.height-1][self.width-1]
+  
+  def place_ship(self, x, y):
+    self.squares[self.height-1][self.width-1] = True
