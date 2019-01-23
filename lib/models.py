@@ -6,15 +6,9 @@ class Board:
     self.populate_squares()
 
   def populate_squares(self):
-    number_of_rows = 0
-    while number_of_rows < (self.height):
-      number_of_squares = 0
-      row = []
-      while number_of_squares < (self.width):
-        row.extend([False])
-        number_of_squares += 1
-      self.squares.extend([row])          
-      number_of_rows += 1
+    while len(self.squares) < (self.height):
+      row = [False] * self.width
+      self.squares.extend([row]) 
   
   def is_square_full(self, x, y):
     return self.squares[self.height-1][self.width-1]
