@@ -10,8 +10,16 @@ class Board:
       row = [False] * self.width
       self.squares.extend([row]) 
   
-  def is_square_full(self, x, y):
-    return self.squares[self.height-1][self.width-1]
+  def is_square_full(self, w, h):
+    return self.squares[h - 1][w - 1]
   
-  def place_ship(self, x, y):
-    self.squares[self.height-1][self.width-1] = True
+  def place_ship(self, ship, w, h):
+    number_of_squares = 0
+    while number_of_squares < ship.length:
+      self.squares[h - 1][w - 1] = True
+      w += 1
+      number_of_squares += 1
+
+class Ship:
+  def __init__(self, length):
+    self.length = length
