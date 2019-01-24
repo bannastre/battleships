@@ -2,8 +2,8 @@ import pytest
 from lib.board import Board
 from lib.ship import Ship
 
-board_height = 9
 board_width = 6
+board_height = 9
 board = Board(board_width, board_height)
 
 def test_board():
@@ -21,25 +21,12 @@ def test_is_square_full():
   assert board.is_square_full(2, 2) == False
 
 def test_place_a_ship_horizontally():
-  board.print()
   ship = Ship(3, 'horizontal')
   board.place_ship(ship, 2, 2)
   board.print()
-  assert board.is_square_full(1, 1) == False
-  assert board.is_square_full(1, 2) == False
-  assert board.is_square_full(1, 3) == False
-  assert board.is_square_full(2, 1) == False
-  assert board.is_square_full(2, 2) == True
-  assert board.is_square_full(2, 3) == False
-  assert board.is_square_full(3, 1) == False
-  assert board.is_square_full(3, 2) == True
-  assert board.is_square_full(3, 3) == False
-  assert board.is_square_full(4, 1) == False
-  assert board.is_square_full(4, 2) == True
-  assert board.is_square_full(4, 3) == False
-  assert board.is_square_full(5, 1) == False
-  assert board.is_square_full(5, 2) == False
-  assert board.is_square_full(5, 3) == False
+  assert board.squares[0] == [False, False, False, False, False, False]
+  assert board.squares[1] == [False, True, True, True, False, False]
+  assert board.squares[2] == [False, False, False, False, False, False]
 
 def test_cannot_place_a_ship_on_another_ship():
   ship = Ship(3, 'horizontal')
@@ -52,19 +39,18 @@ def test_reset_board():
 
 def test_place_a_ship_vertically():
   ship = Ship(3, 'vertical')
-  board.place_ship(ship, 2, 1)
-  assert board.is_square_full(1, 1) == False
-  assert board.is_square_full(1, 2) == False
-  assert board.is_square_full(1, 3) == False
-  assert board.is_square_full(2, 1) == True
-  assert board.is_square_full(2, 2) == True
-  assert board.is_square_full(2, 3) == True
-  assert board.is_square_full(3, 1) == False
-  assert board.is_square_full(3, 2) == False
-  assert board.is_square_full(3, 3) == False
-  assert board.is_square_full(4, 1) == False
-  assert board.is_square_full(4, 2) == False
-  assert board.is_square_full(4, 3) == False
-  assert board.is_square_full(5, 1) == False
-  assert board.is_square_full(5, 2) == False
-  assert board.is_square_full(5, 3) == False  
+  board.place_ship(ship, 2, 2)
+  board.print()
+  assert board.squares[0] == [False, False, False, False, False, False]
+  assert board.squares[1] == [False, True, False, False, False, False]
+  assert board.squares[2] == [False, True, False, False, False, False]
+  assert board.squares[3] == [False, True, False, False, False, False]
+  assert board.squares[4] == [False, False, False, False, False, False]
+
+def test_ships_are_constrained_to_the_board():
+  horizontal_ship = Ship(3, 'horizontal')
+  vertical_ship = Ship(3, 'vertical')
+  with pytest.raises(Exception):
+    board.place_ship(horizontal_ship, 5, 2)
+  with pytest.raises(Exception):
+    board.place_ship(vertical_ship, 5, 9)

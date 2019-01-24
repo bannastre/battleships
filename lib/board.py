@@ -22,11 +22,13 @@ class Board:
   def are_squares_full(self, ship, w, h):
     for i in range(ship.length):
       try: 
-        if self.squares[h - 1][w - 1]: raise Exception('Squares are not empty')
+        if self.squares[h - 1][w - 1]: raise ValueError('Squares are not empty')
         if ship.direction == 'vertical':
           h += 1
         else: 
           w += 1
+      except IndexError:
+        raise ValueError('Ships must be constrained to the board')
       except:
         raise
 
