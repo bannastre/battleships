@@ -35,11 +35,9 @@ class Board:
   def place_ship(self, ship, w, h):
     self.are_squares_full(ship, w, h)
     for i in range(ship.length):
-      try: 
-        self.squares[h - 1][w - 1] = True
-        if ship.direction == 'vertical':
-          h += 1
-        else: 
-          w += 1
-      except:
-        raise
+      self.squares[h - 1][w - 1] = True
+      if ship.direction == 'vertical':
+        h += 1
+      else: 
+        w += 1
+
