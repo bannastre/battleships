@@ -10,3 +10,16 @@ class Player:
       'ship2': Ship(4, 'horizontal'),
       'ship3': Ship(3, 'vertical'),
     }
+    self.opponents = []
+
+  def add_opponent(self, opponent):
+    self.opponents.append(opponent)
+
+  def fire(self, opponent_number, x, y):
+    for oppo in self.opponents:
+      if oppo.number == opponent_number:
+        return oppo.incoming(x, y)
+
+  def incoming(self, x, y):
+    return self.board.is_square_full(x, y)
+      
