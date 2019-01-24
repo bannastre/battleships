@@ -28,7 +28,7 @@ def test_incoming_miss():
 def test_incoming_hit():
   player1 = Player(1)
   player1.board.place_ship(player1.ships['ship1'], 2, 2)
-  assert player1.incoming(2, 2) == True
+  assert player1.incoming(2, 2) == player1.ships['ship1']
 
 def test_fire_miss():
   player1 = Player(1)
@@ -41,4 +41,4 @@ def test_fire_hit():
   player2 = Player(2)
   player1.add_opponent(player2)
   player2.board.place_ship(player2.ships['ship1'], 2, 2)
-  assert player1.fire(2, 2, 2) == True
+  assert player1.fire(2, 2, 2) == player2.ships['ship1']

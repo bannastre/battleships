@@ -21,5 +21,9 @@ class Player:
         return oppo.incoming(x, y)
 
   def incoming(self, x, y):
-    return self.board.is_square_full(x, y)
+    is_hit = self.board.is_square_full(x, y)
+    if is_hit:
+      self.board.sink_square(x, y)
+    return is_hit
+
       

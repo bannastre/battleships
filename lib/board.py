@@ -16,28 +16,30 @@ class Board:
     for row in self.squares: print(row) 
     print('----------------------------')
   
-  def is_square_full(self, w, h):
-    return self.squares[h - 1][w - 1]
+  def is_square_full(self, x, y):
+    return self.squares[y - 1][x - 1]
 
-  def are_squares_full(self, ship, w, h):
+  def are_squares_full(self, ship, x, y):
     for i in range(ship.length):
       try: 
-        if self.squares[h - 1][w - 1]: raise ValueError('Squares are not empty')
+        if type(self.squares[y - 1][x - 1]).__name__ == 'Ship': raise ValueError('Squares are not empty')
         if ship.direction == 'vertical':
-          h += 1
+          y += 1
         else: 
-          w += 1
+          x += 1
       except IndexError:
         raise ValueError('Ships must be constrained to the board')
       except:
         raise
 
-  def place_ship(self, ship, w, h):
-    self.are_squares_full(ship, w, h)
+  def place_ship(self, ship, x, y):
+    self.are_squares_full(ship, x, y)
     for i in range(ship.length):
-      self.squares[h - 1][w - 1] = True
+      self.squares[y - 1][x - 1] = ship
       if ship.direction == 'vertical':
-        h += 1
+        y += 1
       else: 
-        w += 1
+        x += 1
 
+  def sink_square(self, x, y):
+    self.squares[y - 1][x - 1] = False
