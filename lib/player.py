@@ -18,13 +18,17 @@ class Player:
   def get_opponent(self, opponent_number):
     return list(filter(lambda oppo: oppo.number == opponent_number, self.opponents))[0]
 
+  def is_alive(self):
+    floaty_ships = list(filter(lambda ship: ship.length > 0, self.ships.values()))
+    return len(floaty_ships) > 0
+
   def incoming(self, x, y):
     is_ship = self.board.is_square_full(x, y)
     is_sunk = False
     if is_ship:
       is_sunk = self.board.squares[y - 1][x - 1].take_hit()
       self.board.sink_square(x, y)
-    return { 'hit': is_ship, 'sunk': is_sunk }
+    return { 'hit': is_ship, 'sunk': is_sunk, 'winner': not self.is_alive() }
 
   def take_turn(self, opponent_number, x, y):
     opponent = self.get_opponent(opponent_number)
