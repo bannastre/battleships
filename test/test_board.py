@@ -36,8 +36,7 @@ def test_cannot_place_a_ship_on_another_ship():
   board = Board(board_width, board_height)
   ship = Ship(3, 'horizontal')
   board.place_ship(ship, 2, 2)
-  with pytest.raises(Exception):
-    board.place_ship(ship, 2, 2)
+  assert board.place_ship(ship, 2, 2) == False
 
 def test_reset_board():
   board = Board(board_width, board_height)
@@ -61,15 +60,12 @@ def test_ships_are_constrained_to_the_board():
   board = Board(board_width, board_height)
   horizontal_ship = Ship(3, 'horizontal')
   vertical_ship = Ship(3, 'vertical')
-  with pytest.raises(Exception):
-    board.place_ship(horizontal_ship, 5, 2)
-  with pytest.raises(Exception):
-    board.place_ship(vertical_ship, 5, 9)
+  assert board.place_ship(horizontal_ship, 5, 2) == False
+  assert board.place_ship(vertical_ship, 5, 9) == False
 
 def test_sink_square():
   board = Board(board_width, board_height)
   ship = Ship(3, 'horizontal')
   board.place_ship(ship, 2, 2)
-  assert board.squares[1] == [False, ship, ship, ship, False, False]
   board.sink_square(2, 2) 
   assert board.squares[1] == [False, 'Sunk', ship, ship, False, False]

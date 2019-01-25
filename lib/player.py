@@ -5,11 +5,11 @@ class Player:
   def __init__(self, number):
     self.number = number
     self.board = Board(10, 10)
-    self.ships = {
-      'ship1': Ship(2, 'horizontal'),
-      'ship2': Ship(4, 'horizontal'),
-      'ship3': Ship(3, 'vertical'),
-    }
+    self.ships = [
+      Ship(2, 'horizontal'),
+      Ship(4, 'horizontal'),
+      Ship(3, 'vertical'),
+    ]
     self.opponents = []
 
   def add_opponent(self, opponent):
@@ -17,10 +17,10 @@ class Player:
 
   def get_opponent(self, opponent_number):
     return list(filter(lambda oppo: oppo.number == opponent_number, self.opponents))[0]
-
-  def is_alive(self):
-    floaty_ships = list(filter(lambda ship: ship.length > 0, self.ships.values()))
-    return len(floaty_ships) > 0
+  
+  def ships_alive(self):
+    floaty_ships = list(filter(lambda ship: ship.length > 0, self.ships))
+    return len(floaty_ships)
 
   def incoming(self, x, y):
     square = self.board.is_square_full(x, y)
@@ -29,7 +29,7 @@ class Player:
     if is_ship:
       is_sunk = self.board.squares[y - 1][x - 1].take_hit()
       self.board.sink_square(x, y)
-    return { 'hit': is_ship, 'sunk': is_sunk, 'winner': not self.is_alive() }
+    return { 'hit': is_ship, 'sunk': is_sunk, 'winner': self.ships_alive() <= 0 }
 
   def take_turn(self, opponent_number, x, y):
     opponent = self.get_opponent(opponent_number)

@@ -25,7 +25,7 @@ class Board:
   def are_squares_full(self, ship, x, y):
     for i in range(ship.length):
       try: 
-        if type(self.squares[y - 1][x - 1]).__name__ == 'Ship': raise ValueError('Squares are not empty')
+        if type(self.squares[y - 1][x - 1]).__name__ in ['Ship', 'Sunk']: raise ValueError('Squares are not empty')
         if ship.direction == 'vertical':
           y += 1
         else: 
@@ -36,10 +36,16 @@ class Board:
         raise
 
   def place_ship(self, ship, x, y):
-    self.are_squares_full(ship, x, y)
-    for i in range(ship.length):
-      self.squares[y - 1][x - 1] = ship
-      if ship.direction == 'vertical':
-        y += 1
-      else: 
-        x += 1
+    try:
+      self.are_squares_full(ship, x, y)
+      for i in range(ship.length):
+        self.squares[y - 1][x - 1] = ship
+        if ship.direction == 'vertical':
+          y += 1
+        else: 
+          x += 1
+      print('Ship placed')
+      return True    
+    except Exception as err:
+      print('Ship not placed - %s' %(err))
+      return False
