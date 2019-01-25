@@ -12,4 +12,14 @@ After each player has placed their ships on their own board they take turns to s
 When all of one player's ships have been sunk the game finishes and the player who has ships remaining is the winner.
 
 ## Getting Started
-Coming soon... 
+
+BattleShips runs in the command line for the ultimate gaming experience. To get going, 
+
+### Pre-requisites
+1. Set up your virtualenv as normal (for help on this, look [here](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/))
+2. Run the command `python3 -m requirements.txt`
+
+### Play
+1. Find a friend to play with - this is a two player game ;)
+2. Run the command `python main.py`
+3. You will have 3 ships to place on a 10 x 10 grid. Follow the command line instructions and start your naval battle!
