@@ -15,15 +15,17 @@ class Player:
   def add_opponent(self, opponent):
     self.opponents.append(opponent)
 
-  def fire(self, opponent_number, x, y):
-    for oppo in self.opponents:
-      if oppo.number == opponent_number:
-        return oppo.incoming(x, y)
+  def get_opponent(self, opponent_number):
+    return list(filter(lambda oppo: oppo.number == opponent_number, self.opponents))[0]
 
   def incoming(self, x, y):
-    is_hit = self.board.is_square_full(x, y)
-    if is_hit:
+    is_ship = self.board.is_square_full(x, y)
+    is_sunk = False
+    if is_ship:
+      is_sunk = self.board.squares[y - 1][x - 1].take_hit()
       self.board.sink_square(x, y)
-    return is_hit
+    return { 'hit': is_ship, 'sunk': is_sunk }
 
-      
+  def take_turn(self, opponent_number, x, y):
+    opponent = self.get_opponent(opponent_number)
+    return opponent.incoming(x, y)
