@@ -47,4 +47,5 @@ while not winner:
     print('You Sunk a Ship! Your Opponent has %s Ships left' %(current_player.ships_alive()))
   winner = result['winner']
 
+current_player = switch_player()
 print('Congratulations, Player %s! You won BATTLESHIPS!' %(current_player.number))
