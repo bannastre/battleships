@@ -17,10 +17,10 @@ class Board:
     self.populate_squares()
 
   def is_square_full(self, x, y):
-    return not not self.squares[y - 1][x - 1]
+    return self.squares[y - 1][x - 1]
 
   def sink_square(self, x, y):
-    self.squares[y - 1][x - 1] = False
+    self.squares[y - 1][x - 1] = 'Sunk'
 
   def are_squares_full(self, ship, x, y):
     for i in range(ship.length):

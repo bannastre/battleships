@@ -70,6 +70,6 @@ def test_sink_square():
   board = Board(board_width, board_height)
   ship = Ship(3, 'horizontal')
   board.place_ship(ship, 2, 2)
-  assert board.is_square_full(2, 2) == True
+  assert board.squares[1] == [False, ship, ship, ship, False, False]
   board.sink_square(2, 2) 
-  assert board.is_square_full(2, 2) == False
+  assert board.squares[1] == [False, 'Sunk', ship, ship, False, False]

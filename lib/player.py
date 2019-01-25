@@ -23,7 +23,8 @@ class Player:
     return len(floaty_ships) > 0
 
   def incoming(self, x, y):
-    is_ship = self.board.is_square_full(x, y)
+    square = self.board.is_square_full(x, y)
+    is_ship = True if type(square).__name__ == 'Ship' else square
     is_sunk = False
     if is_ship:
       is_sunk = self.board.squares[y - 1][x - 1].take_hit()
